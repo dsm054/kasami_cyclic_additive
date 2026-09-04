@@ -1,0 +1,4 @@
+/.lake/
+/local/
+/build*.log
+/scripts/__pycache__/

@@ -1,0 +1,345 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Carlet's Kasami cyclic-additive conjecture"
+  description: >-
+    A Lean formalization of the Kasami cyclic-additive conjecture introduced by
+    Claude Carlet. For the derivative image of the Kasami monomial x^(4^k-2^k+1)
+    with gcd(k,n)=1, over a finite field of characteristic two with 2^n
+    elements, the formalized result gives the exact three-variable coefficient
+    count 2^(2n-3) for every pair of distinct nonzero coefficients.
+  authors:
+    - "D.S. McNeil"
+    - "Gábor P. Nagy"
+    - "Attila Vajda"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "D.S. McNeil"
+
+classification:
+  arxiv: ["math.CO", "math.NT"]
+  msc2020: ["11T06", "11T71", "94A60"]
+
+sources:
+  - title: "Componentwise APNness, Walsh uniformity of APN functions, and cyclic-additive difference sets"
+    authors:
+      - "Claude Carlet"
+    id: "https://eprint.iacr.org/2017/528"
+    type: "paper"
+    location: "Finite Fields and Their Applications 53 (2018), 226-253; Proposition 4.11 and Definition 4.12"
+    relationship: "background"
+    note: >-
+      Source of the cyclic-additive framework and the Kasami conjecture, and
+      of the exact triple-count condition formalized here. This source does not
+      contain a proof of the general Kasami statement.
+    author_endorsement: "not-contacted"
+
+  - title: "On the Sixth International Olympiad in Cryptography NSUCRYPTO"
+    authors:
+      - "Anastasiya Gorodilova"
+      - "Natalia Tokareva"
+      - "Sergey Agievich"
+      - "Claude Carlet"
+      - "Evgeny Gorkunov"
+      - "Valeria Idrisova"
+      - "Nikolay Kolomeec"
+      - "Alexander Kutsenko"
+      - "Roman Lebedev"
+      - "Svetla Nikova"
+      - "Alexey Oblaukhov"
+      - "Irina Pankratova"
+      - "Marina Pudovkina"
+      - "Vincent Rijmen"
+      - "Aleksei Udovenko"
+    contributors:
+      - name: "not publicly disclosed"
+        role: "problem-proposer"
+    id: "https://doi.org/10.1134/S1990478920040031"
+    type: "paper"
+    location: "Journal of Applied and Industrial Mathematics 14 (2020), 623-647; NSUCRYPTO'2019 unsolved problem"
+    relationship: "background"
+    note: >-
+      Published account of the sixth NSUCRYPTO olympiad, where the Kasami case
+      of Carlet's cyclic-additive condition was posed as an open problem. Nagy
+      and Vajda note that the olympiad problem proposer was not publicly
+      disclosed; that is distinct from authorship of the conjecture itself.
+    author_endorsement: "n/a"
+
+  - title: "On a conjecture on the Kasami APN function"
+    authors:
+      - "Gábor P. Nagy"
+      - "Attila Vajda"
+    id: "https://arxiv.org/abs/2608.18584"
+    type: "paper"
+    location: "arXiv:2608.18584 (2026)"
+    relationship: "background"
+    note: >-
+      Immediate antecedent for the present proof. It gives reductions and
+      structure theorems, a complete proof for the exponent classes k mod n in
+      {1, 2, n-2, n-1}, and exhaustive computational verification for n <= 13.
+      Its monomial/root-count reductions and lower-bound-plus-exact-average
+      strategy are direct antecedents of corresponding parts of this proof.
+      Remark 11.13 gives a Fermat-cubic reinterpretation of the k=2 root
+      equation; the present formalization promotes that reinterpretation to
+      the organizing geometric mechanism for general admissible k.
+    author_endorsement: "participated"
+
+  - title: "The weight enumerators for several classes of subcodes of the second order binary Reed-Muller codes"
+    authors:
+      - "Tadao Kasami"
+    type: "paper"
+    location: "Information and Control 18 (1971), 369-394"
+    relationship: "background"
+    note: >-
+      Classical source for the Kasami exponent and its spectral theory.
+    author_endorsement: "n/a"
+
+  - title: "Permutation polynomials and translation planes of even order"
+    authors:
+      - "Ulrich Dempwolff"
+      - "Peter Müller"
+    id: "https://doi.org/10.1515/advgeom-2011-050"
+    type: "paper"
+    location: "Advances in Geometry 13 (2013), 293-313"
+    relationship: "background"
+    note: >-
+      A modern permutation-polynomial treatment of the truncated-trace/MCM
+      machinery underlying the Kasami APN argument. Closely related
+      Dempwolff-Müller results are also independently formalized in the
+      Nagy-Vajda Lean development listed under related_formalizations.
+    author_endorsement: "not-contacted"
+
+  - title: "New cyclic difference sets with Singer parameters"
+    authors:
+      - "J. F. Dillon"
+      - "Hans Dobbertin"
+    id: "https://doi.org/10.1016/j.ffa.2003.09.003"
+    type: "paper"
+    location: "Finite Fields and Their Applications 10 (2004), 342-389"
+    relationship: "background"
+    note: >-
+      Important MCM/Dickson and additive-Fourier ancestry for the Kasami
+      difference-set construction, including a short proof of the relevant
+      Müller-Cohen-Matthews permutation property.
+    author_endorsement: "not-contacted"
+
+  - title: "Jacobi-like sums and difference sets with Singer parameters"
+    authors:
+      - "J. F. Dillon"
+      - "Neeraj Kashyap"
+    type: "paper"
+    location: "Australasian Journal of Combinatorics 55 (2013), 49-63; Theorems 1-2"
+    relationship: "background"
+    note: >-
+      Source of the multiplicative Fourier/Gauss-sum phase formula recorded as
+      DillonKashyapPhaseFormula and of the identification of the associated
+      difference set with the complement of the derivative image. The final
+      theorem rederives the needed phase formula internally rather than taking
+      it as a literature dependency.
+    author_endorsement: "not-contacted"
+
+  - title: "Infinite families of 3-designs from APN functions"
+    authors:
+      - "Chunming Tang"
+    id: "https://doi.org/10.1002/jcd.21685"
+    type: "paper"
+    location: "Journal of Combinatorial Designs 28 (2020), 97-117; Theorem 8"
+    relationship: "background"
+    note: >-
+      Gives the affine 3-design interpretation of the relevant three-variable
+      solution count and its equivalent cubic Walsh-correlation formulation.
+    author_endorsement: "not-contacted"
+
+  - title: "Proof of Carlet's Kasami cyclic-additive conjecture"
+    authors:
+      - "D.S. McNeil"
+      - "Gábor P. Nagy"
+      - "Attila Vajda"
+    id: "https://github.com/dsm054/kasami_cyclic_additive"
+    type: "original-proof"
+    location: "Lean proof in this repository"
+    relationship: "other"
+    note: >-
+      Palomar's original-proof type records the result origin of the completed
+      theorem; it is not a claim that individual ingredients or proof techniques
+      are novel. Detailed mathematical sources, antecedents, and proof ancestry
+      are recorded in docs/PROVENANCE.md.
+    author_endorsement: "participated"
+
+related_formalizations:
+  - id: "https://github.com/nagygp/kasami-apn-ab/tree/a92ff580e68a328d65515a16041763bbcb67d1c6"
+    relationship: "independent"
+    note: >-
+      Prior Lean formalization by Gábor P. Nagy and Attila Vajda of classical
+      Kasami APN and AB theory. It includes Dempwolff-Müller permutation
+      machinery, the Artin-Schreier/MCM treatment of the Kasami derivative,
+      Walsh-moment arguments, and Frobenius transport between complementary
+      exponents. It does not formalize Carlet's cyclic-additive triple-count
+      conjecture or the Fermat-cubic/isogeny completion used in this repository.
+
+  - id: "https://github.com/nagygp/conjecture-on-kasami/tree/aeb05ee1efe0e3446e5fb1dfaba5a43f01720713"
+    relationship: "independent"
+    note: >-
+      Companion Lean formalization by Gábor P. Nagy and Attila Vajda of the
+      conjecture on the Kasami APN function, including reductions, structure
+      theorems, special exponent classes, and computational verification.
+
+status:
+  scope: >-
+    The complete proof is present in this repository. The theorem statement and
+    Comparator-facing definitions are fixed in Palomar form. The only sorry in
+    the project is the deliberate placeholder in Challenge.lean, which
+    Solution.lean discharges; #print axioms on
+    KasamiCyclicAdditive.carlet_kasami_cyclic_additive reports only propext,
+    Classical.choice and Quot.sound.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "KasamiCyclicAdditive.carlet_kasami_cyclic_additive"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "agent"
+      models:
+        - "GPT-5.6 Sol (OpenAI)"
+      framework: "ChatGPT (OpenAI)"
+      tool_setup: >-
+        Mathematical proof discovery in interactive chat, outside the
+        repository. The main source of the mathematical argument; together
+        with Claude Code this accounted for the bulk of the development.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based and not tracked"
+        hardware: "local workstation and hosted services"
+      prompting_notes: >-
+        Iterative mathematical proof search, with results carried into the
+        repository for formalization.
+
+    - method: "agent"
+      models:
+        - "GPT-5.6 Luna (OpenAI)"
+      framework: "Codex (OpenAI)"
+      tool_setup: >-
+        Agentic Lean development in the repository: formalization of the
+        argument, refactoring, and documentation.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based and not tracked"
+        hardware: "local workstation and hosted services"
+      prompting_notes: >-
+        Repository-level agent sessions, with the Lean build run on each
+        change.
+
+    - method: "agent"
+      models:
+        - "Claude Opus 5 (Anthropic)"
+      framework: "Claude Code (Anthropic)"
+      tool_setup: >-
+        Lean development, build-error repair, code review, and formalization
+        auditing, including the boundary-case and executable audits and the
+        independent Python oracle. Together with ChatGPT this accounted for the
+        bulk of the development.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based and not tracked"
+        hardware: "local workstation and hosted services"
+      prompting_notes: >-
+        Interactive sessions under human direction, with the Lean build and the
+        independent enumeration script run on every change.
+
+    - method: "agent"
+      models:
+        - "Aristotle (Harmonic)"
+      framework: "Aristotle (Harmonic)"
+      tool_setup: >-
+        Fallback prover, used on individual goals rather than as a primary
+        source of proofs: submitted self-contained Lean files to close specific
+        `sorry`s where the ChatGPT and Claude Code sessions had not succeeded.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "subscription-based and not tracked"
+        hardware: "local workstation and hosted services"
+      prompting_notes: >-
+        Per-goal submission of self-contained files, with the returned proof
+        terms rechecked in the repository build.
+    - method: "other"
+      models: []
+      framework: "Python scripts in scripts/"
+      tool_setup: >-
+        `scripts/check_boundary_cases.py` independently re-implements the
+        finite-field arithmetic and the boundary computations, and checks them
+        against the same case list as the executable Lean audits in
+        `KasamiCyclicAdditive/Validation/BoundaryComputations.lean`. It uses
+        only the Python standard library. The script is outside the trusted
+        base: no proof term depends on it, the Lean audits stand on their own,
+        and a disagreement between the two implementations indicates a bug in
+        one of them rather than a gap in the proof.
+
+  spend_usd: "subscription-based across all methods"
+  notes: >-
+    The formal proof was developed collaboratively with AI systems under human
+    direction; all final proof terms are checked by Lean. The Palomar port
+    follows the official Challenge/Solution and Comparator conventions.
+
+fidelity:
+  divergences: >-
+    No known mathematical divergence from the exact coefficient-form conjecture.
+    The Challenge statement imposes neither the proof normalization k < n nor
+    separate hypotheses 1 <= k or 2 <= n. ParameterReduction proves that
+    |K|=2^n together with distinct nonzero coefficients forces n >= 2; then
+    gcd(k,n)=1 makes k % n a positive representative below n. The derivative
+    image and coefficient triple count are proved invariant under k -> k % n,
+    and KasamiCyclicAdditive.carlet_kasami_cyclic_additive_literature reduces
+    the exact statement to the normalized core theorem. The Lean statement works
+    over an arbitrary finite field K equipped with CharP K 2 and a cardinality
+    witness |K|=2^n, rather than choosing a concrete model of GF(2^n); this is
+    mathematically equivalent.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Aristotle (Harmonic)"
+  notes: >-
+    The formal development has undergone repeated statement, dependency, and
+    axiom audits and successful Lean builds. An independently structured,
+    Mathlib-only literature specification and a formal semantic bridge to the
+    implementation are included. An independent Aristotle review rechecked
+    statement fidelity and Challenge/Solution correspondence and successfully
+    replayed the real Landrun Comparator; Comparator, NanoDa, and the Lean kernel
+    accepted the solution using only the three permitted axioms. The
+    Comparator-facing Solution environment imports only KasamiCyclicAdditive.Main,
+    excluding Validation computations from that environment.
+
+alignment:
+  namespace: "KasamiCyclicAdditive"
+  statements:
+    - source: "Carlet (2018), Proposition 4.11 and Definition 4.12, specialized to Kasami exponents"
+      lean: "KasamiCyclicAdditive.carlet_kasami_cyclic_additive"
+      module: "Challenge"
+      status: "formalized and proved"
+      note: >-
+        Exact coefficient triple-count form with distinct nonzero v1,v2 and
+        coefficient v1+v2 on the third variable. The property formalized is
+        Definition 4.12, which Carlet states for any set of size 2^(n-1) and
+        which carries no parity hypothesis. Proposition 4.11 names the same
+        condition but identifies it with componentwise Walsh uniformity only
+        for an APN permutation, hence only for odd n.
+
+acknowledgements: >-
+  Mathlib; the PalomarRegistry PalomarTemplate and Palomar policy documentation;
+  Claude Carlet for the cyclic-additive framework and conjecture; and GPT-5.6
+  Sol, Aristotle, GPT-5.6 Luna, and Claude Opus 5 for proof discovery,
+  formalization, review, and repair.
