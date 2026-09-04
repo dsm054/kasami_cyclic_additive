@@ -321,7 +321,7 @@ theorem phaseTripleSum_eq_zero_of_not_cube {k m : ℕ} {ψ : AddChar K ℂ}
     have hx0 : x ≠ 0 := by
       rintro rfl; exact hx ⟨0, by ring⟩
     by_contra hcon
-    push_neg at hcon
+    push Not at hcon
     obtain ⟨h1, h2⟩ := hcon
     obtain ⟨z, hz⟩ : ∃ b : Kˣ, b ^ 3 = lam := by
       by_contra hb

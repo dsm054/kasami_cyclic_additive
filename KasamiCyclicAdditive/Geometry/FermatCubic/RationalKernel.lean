@@ -346,7 +346,7 @@ example {X Y Z : ZMod 2} (hP : IsPoint X Y Z) :
 
 /-- The even case applies over `K = 𝔽₄` with `n = 2`, `k = 3`. -/
 example : ∀ X Y Z : GaloisField 2 2, IsPoint X Y Z → (IsKernelPoint 3 X Y Z ↔ Z = 0) := by
-  haveI : Fintype (GaloisField 2 2) := Fintype.ofFinite _
+  have : Fintype (GaloisField 2 2) := Fintype.ofFinite _
   intro X Y Z hP
   refine rational_kernel_even (n := 2) (by decide) (by norm_num) ?_ hP
   rw [← Nat.card_eq_fintype_card]

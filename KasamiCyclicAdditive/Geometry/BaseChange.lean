@@ -30,13 +30,14 @@ noncomputable def basePt (K F : Type*) [Field K] [DecidableEq K] [CharP K 2]
 /-- `basePt` sends an affine point to the point with base-changed coordinates. -/
 lemma basePt_some {x y : K} (hns : (fer K).toAffine.Nonsingular x y)
     (hns2 : (fer F).toAffine.Nonsingular (algebraMap K F x) (algebraMap K F y)) :
-    basePt K F (Affine.Point.some hns) = Affine.Point.some hns2 := by
+    basePt K F (Affine.Point.some _ _ hns) = Affine.Point.some _ _ hns2 := by
   rw [basePt]
   simp only [AddMonoidHom.coe_comp, Function.comp_apply, AddEquiv.coe_toAddMonoidHom,
     curveCast_symm_some]
   rw [show WeierstrassCurve.Affine.Point.baseChange (W' := ferZ) K F
       = WeierstrassCurve.Affine.Point.map (Algebra.ofId K F) from rfl,
     WeierstrassCurve.Affine.Point.map_some, curveCast_some]
+  simp only [Algebra.ofId_apply]
 
 /-- `basePt` maps affine Fermat points to affine Fermat points. -/
 lemma basePt_pt {w t : K} (h : w ^ 3 + t ^ 3 = 1) :

@@ -80,7 +80,7 @@ theorem frobSum_sq_add_self (k : ℕ) (s : K) :
     rw [frobSum_succ]
     have h3 : (frobSum k s + s ^ (2 ^ k)) ^ 2 =
         frobSum k s ^ 2 + (s ^ (2 ^ k)) ^ 2 := by
-      haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+      have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
       exact add_pow_char _ _ _
     rw [h3, ← pow_mul, pow_succ 2 k]
     linear_combination ih + s ^ (2 ^ k) * h2

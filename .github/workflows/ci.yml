@@ -47,6 +47,8 @@ jobs:
       - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
         with:
           build: false
+      - name: Build the project library
+        run: lake build KasamiCyclicAdditive
       - name: Check literature specification
         run: lake env lean KasamiCyclicAdditive/Validation/LiteratureSpecification.lean
       - name: Check literature-to-implementation bridge

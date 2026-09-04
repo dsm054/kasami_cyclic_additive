@@ -43,7 +43,7 @@ omit [Fintype K] [DecidableEq K] in
 /-- `frobSum k` is additive, being a sum of `2`-power Frobenius maps. -/
 private lemma frobSum_add (k : ℕ) (x y : K) :
     frobSum k (x + y) = frobSum k x + frobSum k y := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   simp only [frobSum, ← Finset.sum_add_distrib]
   exact Finset.sum_congr rfl fun i _ => add_pow_char_pow x y 2 i
 
@@ -57,7 +57,7 @@ omit [Fintype K] [DecidableEq K] in
 /-- Squaring `frobSum k` shifts every exponent up by one. -/
 private lemma frobSum_sq (k : ℕ) (s : K) :
     frobSum k s ^ 2 = ∑ i ∈ Finset.range k, s ^ (2 ^ (i + 1)) := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   rw [frobSum, sum_pow_char]
   exact Finset.sum_congr rfl fun i _ => by rw [← pow_mul, pow_succ]
 
@@ -107,7 +107,7 @@ theorem dickson_two_pow (R : Type*) [CommRing R] [CharP R 2] :
     ∀ k : ℕ, dickson 1 (1 : R) (2 ^ k) = X ^ (2 ^ k)
   | 0 => by simp
   | (k + 1) => by
-      haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+      have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
       rw [pow_succ, dickson_one_one_mul, dickson_two_pow R k, dickson_one_one_charP R 2,
         pow_comp, X_comp, ← pow_mul, ← pow_succ]
       congr 1
@@ -157,7 +157,7 @@ omit [Fintype K] [DecidableEq K] in
 /-- Sparse Dickson identity `b^(2^k+1) * T_k(b⁻¹)^2 = D_(2^k-1)(b)`. -/
 private lemma sparse_dickson_pred : ∀ (k : ℕ) (b : K), b ≠ 0 →
     b ^ (2 ^ k + 1) * frobSum k b⁻¹ ^ 2 = (dickson 1 1 (2 ^ k - 1)).eval b := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   have h2 : (2 : K) = 0 := CharTwo.two_eq_zero
   intro k
   induction k with
@@ -179,7 +179,7 @@ omit [Fintype K] [DecidableEq K] in
 /-- Sparse Dickson identity `b^(2^k+1) * T_k(1+b⁻¹)^2 = D_(2^k+1)(b)`. -/
 private lemma sparse_dickson_succ {k : ℕ} (hk : Odd k) (b : K) (hb : b ≠ 0) :
     b ^ (2 ^ k + 1) * frobSum k (1 + b⁻¹) ^ 2 = (dickson 1 1 (2 ^ k + 1)).eval b := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   have h2 : (2 : K) = 0 := CharTwo.two_eq_zero
   have hsum : frobSum k (1 + b⁻¹) = 1 + frobSum k b⁻¹ := by
     rw [frobSum_add, frobSum_one hk]
@@ -285,7 +285,7 @@ omit [DecidableEq K] in
 /-- `(T*_k a) ^ (2 ^ k) = T_k(a) ^ 2`. -/
 private lemma adjSum_pow {n : ℕ} (hcard : Fintype.card K = 2 ^ n) {k : ℕ} (hk : k ≤ n) (a : K) :
     adjSum n k a ^ (2 ^ k) = frobSum k a ^ 2 := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   rw [adjSum, sum_pow_char_pow, frobSum_sq]
   rw [← Finset.sum_range_reflect (fun i => a ^ (2 ^ (i + 1))) k]
   refine Finset.sum_congr rfl fun i hi => ?_
@@ -300,7 +300,7 @@ omit [DecidableEq K] in
 private lemma adjSum_one_add_pow {n : ℕ} (hcard : Fintype.card K = 2 ^ n) {k : ℕ} (hkn : k ≤ n)
     (hk : Odd k) (a : K) :
     (1 + adjSum n k a) ^ (2 ^ k) = frobSum k (1 + a) ^ 2 := by
-  haveI : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
   rw [add_pow_char_pow, one_pow, adjSum_pow hcard hkn, frobSum_add, frobSum_one hk,
     add_pow_char, one_pow]
 

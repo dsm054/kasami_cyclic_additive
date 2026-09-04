@@ -246,10 +246,8 @@ lemma two_S_cube {ψ : AddChar K ℂ} {m D e : ℕ} {S : K → ℂ} (hψ : ψ.Is
       simp only [mem_cubeRootsOne]
       rw [inv_pow, ← pow_mul, mul_comm m 3, pow_mul, hv, one_pow, inv_one]
     · intro u _
-      dsimp only
       rw [powD_powm hm hD hmD, inv_inv]
     · intro v _
-      dsimp only
       rw [inv_inv, powm_powD hm hD hmD]
     · intro u _; rfl
   rw [hreindex, phiHat]

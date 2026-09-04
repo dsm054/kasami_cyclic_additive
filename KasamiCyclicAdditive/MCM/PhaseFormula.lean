@@ -30,7 +30,9 @@ private lemma gaussSum_sq_eq {psi : AddChar K ℂ} (hsq : ∀ x : K, psi (x ^ 2)
     (chi : MulChar K ℂ) : gaussSum (chi ^ 2) psi = gaussSum chi psi := by
   have hb : Function.Bijective (fun x : K => x ^ 2) := by
     have h := (frobeniusEquiv K 2).bijective
-    simpa [frobenius_def] using h
+    have hfun : (fun x : K => x ^ 2) = ⇑(frobenius K 2) := by
+      funext x; rw [frobenius_def]
+    rw [hfun]; exact h
   let e : K ≃ K := Equiv.ofBijective _ hb
   rw [gaussSum, gaussSum, ← e.sum_comp (fun x => chi x * psi x)]
   refine Finset.sum_congr rfl fun x _ => ?_

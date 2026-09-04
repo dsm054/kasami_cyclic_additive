@@ -38,7 +38,7 @@ theorem slopes_nonempty_of_two_lt_card (hcard : 2 < Fintype.card K) :
     (slopes K).Nonempty := by
   have hex : ∃ r : K, r ≠ 0 ∧ r ≠ 1 := by
     by_contra h
-    push_neg at h
+    push Not at h
     let f : Bool → K := fun b => if b then 1 else 0
     have hsurj : Function.Surjective f := by
       intro r

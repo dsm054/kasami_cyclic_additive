@@ -49,13 +49,13 @@ lemma eq_of_nonsingular {x y : K} (h : (fer K).toAffine.Nonsingular x y) :
 /-- Two affine points of `fer` agree once their coordinates do. -/
 lemma some_eq_some {x₁ y₁ x₂ y₂ : K} (h₁ : (fer K).toAffine.Nonsingular x₁ y₁)
     (h₂ : (fer K).toAffine.Nonsingular x₂ y₂) (hx : x₁ = x₂) (hy : y₁ = y₂) :
-    Affine.Point.some h₁ = Affine.Point.some h₂ := by
+    Affine.Point.some _ _ h₁ = Affine.Point.some _ _ h₂ := by
   subst hx; subst hy; rfl
 
 /-- Equal affine points of `fer` have equal coordinates. -/
 lemma some_inj {x₁ y₁ x₂ y₂ : K} {h₁ : (fer K).toAffine.Nonsingular x₁ y₁}
     {h₂ : (fer K).toAffine.Nonsingular x₂ y₂}
-    (h : Affine.Point.some h₁ = Affine.Point.some h₂) : x₁ = x₂ ∧ y₁ = y₂ := by
+    (h : Affine.Point.some _ _ h₁ = Affine.Point.some _ _ h₂) : x₁ = x₂ ∧ y₁ = y₂ := by
   rw [Affine.Point.some.injEq] at h
   exact ⟨h.1, h.2⟩
 
@@ -126,20 +126,20 @@ lemma slope_ne {x₁ x₂ y₁ y₂ : K} (hx : x₁ ≠ x₂) :
 /-- An affine point of `fer` is `3`-torsion exactly when its `x`-coordinate
 satisfies `x^4 = x`. -/
 lemma three_torsion_some_iff {x y : K} (h : (fer K).toAffine.Nonsingular x y) :
-    (3 : ℕ) • (Affine.Point.some h) = 0 ↔ x ^ 4 = x := by
-  have hdbl : Affine.Point.some h + Affine.Point.some h =
-      Affine.Point.some (Affine.nonsingular_add h h fun hxy => (Y_ne_negY x y) hxy.right) :=
+    (3 : ℕ) • (Affine.Point.some _ _ h) = 0 ↔ x ^ 4 = x := by
+  have hdbl : Affine.Point.some _ _ h + Affine.Point.some _ _ h =
+      Affine.Point.some _ _ (Affine.nonsingular_add h h fun hxy => (Y_ne_negY x y) hxy.right) :=
     Affine.Point.add_self_of_Y_ne (Y_ne_negY x y)
-  have h3 : (3 : ℕ) • (Affine.Point.some h) = 0 ↔
-      Affine.Point.some h + Affine.Point.some h = -Affine.Point.some h := by
+  have h3 : (3 : ℕ) • (Affine.Point.some _ _ h) = 0 ↔
+      Affine.Point.some _ _ h + Affine.Point.some _ _ h = -Affine.Point.some _ _ h := by
     constructor
     · intro hh
-      have : Affine.Point.some h + Affine.Point.some h + Affine.Point.some h = 0 := by
+      have : Affine.Point.some _ _ h + Affine.Point.some _ _ h + Affine.Point.some _ _ h = 0 := by
         rw [← hh]; abel
       exact eq_neg_of_add_eq_zero_left this
     · intro hh
-      have : (3 : ℕ) • (Affine.Point.some h)
-          = Affine.Point.some h + Affine.Point.some h + Affine.Point.some h := by abel
+      have : (3 : ℕ) • (Affine.Point.some _ _ h)
+          = Affine.Point.some _ _ h + Affine.Point.some _ _ h + Affine.Point.some _ _ h := by abel
       rw [this, hh]
       exact neg_add_cancel _
   rw [h3, hdbl, Affine.Point.neg_some]

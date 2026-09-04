@@ -73,14 +73,12 @@ private lemma exists_pt_of_not_three_torsion {K : Type*} [Field K] [DecidableEq 
     ∃ (x y : K) (h : x ^ 3 + y ^ 3 = 1), x ≠ 0 ∧ y ≠ 0 ∧ Y = pt x y h := by
   rcases point_repr Y with rfl | ⟨α, hα, rfl⟩ | ⟨x0, y0, hxy0, rfl⟩
   · exact absurd (by simp : (3 : ℤ) • (0 : (fer K).toAffine.Point) = 0) hY3
-  · exact absurd (by simpa [natCast_zsmul] using three_torsion_ptInf hα) hY3
+  · exact absurd (by exact_mod_cast three_torsion_ptInf hα) hY3
   · refine ⟨x0, y0, hxy0, ?_, ?_, rfl⟩
     · intro hc
-      exact hY3 (by simpa [natCast_zsmul] using
-        (three_torsion_pt_iff hxy0).mpr (Or.inl hc))
+      exact hY3 (by exact_mod_cast (three_torsion_pt_iff hxy0).mpr (Or.inl hc))
     · intro hc
-      exact hY3 (by simpa [natCast_zsmul] using
-        (three_torsion_pt_iff hxy0).mpr (Or.inr hc))
+      exact hY3 (by exact_mod_cast (three_torsion_pt_iff hxy0).mpr (Or.inr hc))
 
 /-- If `Q + π Q` is fixed by `π^n`, then `π^n Q - Q` lies in the kernel of `1 + π`. -/
 private lemma frobEnd_pow_sub_mem_kernel {F : Type*} [Field F] [DecidableEq F] [CharP F 2]
@@ -113,9 +111,9 @@ theorem rootEquationSolvable_even {K : Type*} [Field K] [Fintype K] [DecidableEq
     (hcard : Fintype.card K = 2 ^ n) (he : 2 ^ k + 1 = 3 * m)
     (hm : Nat.Coprime m (2 ^ n - 1)) :
     RootEqSolvable m K := by
-  haveI : CharP (AlgebraicClosure K) 2 :=
+  have : CharP (AlgebraicClosure K) 2 :=
     charP_of_injective_algebraMap (algebraMap K (AlgebraicClosure K)).injective 2
-  haveI := Classical.decEq (AlgebraicClosure K)
+  have := Classical.decEq (AlgebraicClosure K)
   set F := AlgebraicClosure K with hFdef
   have hk : Odd k := by
     rcases Nat.even_or_odd k with hke | hko
@@ -133,13 +131,13 @@ theorem rootEquationSolvable_even {K : Type*} [Field K] [Fintype K] [DecidableEq
   -- Step 2: `Y` is not `3`-torsion.
   have hP3 : (3 : ℤ) • P ≠ 0 := by
     intro hz
-    have hz' : (3 : ℕ) • P = 0 := by simpa [natCast_zsmul] using hz
+    have hz' : (3 : ℕ) • P = 0 := by exact_mod_cast hz
     rcases (three_torsion_pt_iff hpq).mp hz' with h | h
     · exact hp h
     · exact hq h
   have hR3 : (3 : ℤ) • R ≠ 0 := by
     have hT3 : (3 : ℤ) • t3 K = 0 := by
-      simpa [natCast_zsmul] using (three_torsion_t3 (K := K))
+      exact_mod_cast (three_torsion_t3 (K := K))
     rw [hRdef, smul_sub, hT3, zero_sub, neg_ne_zero]
     exact hP3
   have hY3 : (3 : ℤ) • Y ≠ 0 := by

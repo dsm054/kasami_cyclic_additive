@@ -89,7 +89,7 @@ build
 Solution' \
   --best-effort --ro / --rw /dev -ldd -add-exec --env PATH \
   --ro /workspace --rwx /workspace/.lake --rox /toolchain \
-  lake build Solution
+  -- lake build Solution
 
 # Landrun uses -add-exec to add the sandboxed binary to --rox. It narrows the
 # executable set rather than lifting a restriction, and Comparator sends it on

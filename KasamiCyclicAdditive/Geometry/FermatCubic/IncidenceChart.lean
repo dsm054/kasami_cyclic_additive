@@ -31,7 +31,7 @@ private lemma t3_fermat : (1 : K) ^ 3 + (0 : K) ^ 3 = 1 := by norm_num
 /-- The Frobenius `pi^k` preserves the Fermat equation. -/
 lemma frob_fermat {W T : K} (h : W ^ 3 + T ^ 3 = 1) (k : ℕ) :
     (W ^ 2 ^ k) ^ 3 + (T ^ 2 ^ k) ^ 3 = 1 := by
-  haveI : ExpChar K 2 := ExpChar.prime Nat.prime_two
+  have : ExpChar K 2 := ExpChar.prime Nat.prime_two
   have := congrArg (fun z : K => z ^ 2 ^ k) h
   simpa [add_pow_char_pow, ← pow_mul, Nat.mul_comm] using this
 

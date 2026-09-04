@@ -42,7 +42,7 @@ lemma chart_nonsingular {w t : K} (h : w ^ 3 + t ^ 3 = 1) :
 
 /-- The affine Fermat point `(w,t)` viewed in the Weierstrass model `fer`. -/
 def pt (w t : K) (h : w ^ 3 + t ^ 3 = 1) : (fer K).toAffine.Point :=
-  Affine.Point.some (chart_nonsingular h)
+  Affine.Point.some _ _ (chart_nonsingular h)
 
 /-- `pt` is injective in its two coordinates. -/
 lemma pt_inj {w t w' t' : K} {h : w ^ 3 + t ^ 3 = 1} {h' : w' ^ 3 + t' ^ 3 = 1}

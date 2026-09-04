@@ -2,8 +2,9 @@
 set -euo pipefail
 
 # Landrun's current CLI needs an explicit outer `--` before the sandboxed
-# command. Comparator constructs Landrun's options itself but does not add that
-# delimiter. Without it, Landrun consumes lean4export's own `--` separator.
+# command, or it consumes lean4export's own `--` separator. Comparator
+# constructs Landrun's options itself and ends them with that delimiter, so
+# consume it here and re-add exactly one below.
 landrun_binary=${PALOMAR_LANDRUN_BIN:?PALOMAR_LANDRUN_BIN must name the pinned Landrun binary}
 landrun_options=()
 
@@ -15,6 +16,10 @@ landrun_options=()
 # Landrun accepts one or two leading dashes for every flag, so reject both.
 while [ "$#" -gt 0 ]; do
   case "$1" in
+    --)
+      shift
+      break
+      ;;
     -unrestricted-*|--unrestricted-*)
       echo "error: Landrun option $1 switches off part of the sandbox" >&2
       echo "Comparator must not request it; refusing to run $landrun_binary" >&2

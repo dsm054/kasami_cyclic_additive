@@ -11,9 +11,9 @@ nanoda_dir="$cache_root/nanoda"
 # Comparator, Landrun and NanoDa carry the fixed verifier pins recorded in the
 # Palomar template. lean4export is different: Palomar derives its release tag
 # from the submitted Lean version, so this pin tracks lean-toolchain. It is the
-# v4.28.0 tag, matching leanprover/lean4:v4.28.0 below; change both together.
-comparator_commit=68a064109f01c08f47c8edc9f51d6a2bbffaa188
-lean4export_commit=d065b0009aed0520e9e99752847a33b337661690
+# v4.33.0 tag, matching leanprover/lean4:v4.33.0 below; change both together.
+comparator_commit=575674928e239f5bc452aab72d1dd7b0f1326494
+lean4export_commit=15f6055e299ad5b89345e533cc2192f4cc00f659
 landrun_commit=811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
 nanoda_commit=68d5ca9db226849b41a6fff59d796ff19d0a8840
 

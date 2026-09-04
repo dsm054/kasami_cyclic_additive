@@ -51,9 +51,9 @@ theorem pow_card_sq_eq_self (K : Type*) [Field K] [Fintype K] (x : K)
     (u : AlgebraicClosure K) (hu0 : u ≠ 0)
     (hx : u + u⁻¹ = algebraMap K (AlgebraicClosure K) x) :
     u ^ (Fintype.card K ^ 2) = u := by
-  haveI := ringChar.charP K
+  have := ringChar.charP K
   obtain ⟨n, hp, hc⟩ := FiniteField.card K (ringChar K)
-  haveI : Fact (Nat.Prime (ringChar K)) := ⟨hp⟩
+  have : Fact (Nat.Prime (ringChar K)) := ⟨hp⟩
   set p := ringChar K
   set q := Fintype.card K with hq
   have heq : u ^ 2 - (algebraMap K (AlgebraicClosure K) x) * u + 1 = 0 := by

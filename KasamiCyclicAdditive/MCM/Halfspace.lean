@@ -43,7 +43,7 @@ def mcmMap (k : ℕ) (s : K) : K :=
 /-- The trace of a finite extension is invariant under the `#F`-power Frobenius. -/
 theorem trace_pow_natCard {F L : Type*} [Field F] [Field L] [Finite L] [Algebra F L]
     (x : L) : Algebra.trace F L (x ^ Nat.card F) = Algebra.trace F L x := by
-  haveI : Finite F := Finite.of_injective _ (FaithfulSMul.algebraMap_injective F L)
+  have : Finite F := Finite.of_injective _ (FaithfulSMul.algebraMap_injective F L)
   cases nonempty_fintype F
   cases nonempty_fintype L
   apply FaithfulSMul.algebraMap_injective F L
@@ -60,9 +60,14 @@ theorem trace_pow_natCard {F L : Type*} [Field F] [Field L] [Finite L] [Algebra 
   simp only [h1]
   have h2 := Finset.sum_range_succ' (fun i => x ^ q ^ i) n
   have h3 := Finset.sum_range_succ (fun i => x ^ q ^ i) n
-  simp only at h2 h3
   rw [h3, hxq, pow_zero, pow_one] at h2
   exact add_right_cancel h2.symm
+
+/-- Congruence for an additive character after precomposition. -/
+private lemma addChar_comp_congr {A B M : Type*} [AddMonoid A] [AddMonoid B] [Monoid M]
+    (ψ : AddChar B M) (f : A →+ B) {a b : A} (h : f a = f b) :
+    ψ.compAddMonoidHom f a = ψ.compAddMonoidHom f b := by
+  rw [AddChar.compAddMonoidHom_apply, AddChar.compAddMonoidHom_apply, h]
 
 omit [DecidableEq K] in
 /-- In characteristic two the canonical trace character is invariant
@@ -70,9 +75,9 @@ under squaring. -/
 theorem primitiveAddChar_sq (x : K) :
     primitiveAddChar K (x ^ 2) = primitiveAddChar K x := by
   have hrc : ringChar K = 2 := ringChar.eq K 2
-  haveI hcp : CharP K (ringChar K) := ringChar.charP K
-  haveI : Fact (ringChar K).Prime := ⟨CharP.char_is_prime K (ringChar K)⟩
-  letI : Algebra (ZMod (ringChar K)) K := ZMod.algebra _ _
+  have hcp : CharP K (ringChar K) := ringChar.charP K
+  have : Fact (ringChar K).Prime := ⟨CharP.char_is_prime K (ringChar K)⟩
+  let : Algebra (ZMod (ringChar K)) K := ZMod.algebra _ _
   have hcard : Nat.card (ZMod (ringChar K)) = 2 := by rw [hrc]; simp
   have h : Algebra.trace (ZMod (ringChar K)) K (x ^ 2)
       = Algebra.trace (ZMod (ringChar K)) K x := by
@@ -80,9 +85,8 @@ theorem primitiveAddChar_sq (x : K) :
     rwa [hcard] at this
   unfold primitiveAddChar AddChar.FiniteField.primitiveChar_to_Complex
     AddChar.FiniteField.primitiveChar
-  simp only [MonoidHom.compAddChar_apply, Function.comp_apply,
-    AddChar.compAddMonoidHom_apply]
-  exact congrArg _ (congrArg _ h)
+  simp only [MonoidHom.compAddChar_apply, Function.comp_apply]
+  exact congrArg _ (addChar_comp_congr _ _ h)
 
 /-! ### The algebraic MCM identity -/
 

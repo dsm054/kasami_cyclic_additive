@@ -54,19 +54,23 @@ omit [CharP K 2] in
 /-- `curveCast` leaves the coordinates of an affine point unchanged. -/
 lemma curveCast_some {W W' : WeierstrassCurve K} (h : W = W') {x y : K}
     (hns : W.toAffine.Nonsingular x y) :
-    curveCast h (Affine.Point.some hns) = Affine.Point.some (h ▸ hns) := by
+    curveCast h (Affine.Point.some _ _ hns) = Affine.Point.some _ _ (h ▸ hns) := by
   subst h; rfl
 
 omit [CharP K 2] in
 /-- The inverse of `curveCast` likewise leaves the coordinates unchanged. -/
 lemma curveCast_symm_some {W W' : WeierstrassCurve K} (h : W = W') {x y : K}
     (hns : W'.toAffine.Nonsingular x y) :
-    (curveCast h).symm (Affine.Point.some hns) = Affine.Point.some (h ▸ hns) := by
+    (curveCast h).symm (Affine.Point.some _ _ hns) = Affine.Point.some _ _ (h ▸ hns) := by
   subst h; rfl
 
 /-- The Frobenius `x ↦ x ^ 2`, as a `ℤ`-algebra map. -/
 private noncomputable def frobAlg (K : Type*) [Field K] [CharP K 2] : K →ₐ[ℤ] K :=
   (frobenius K 2).toIntAlgHom
+
+omit [DecidableEq K] in
+/-- `frobAlg` squares its argument. -/
+private lemma frobAlg_apply (x : K) : frobAlg K x = x ^ 2 := rfl
 
 /-- **Frobenius as a group endomorphism of `E(K)`.** -/
 noncomputable def frobPt (K : Type*) [Field K] [DecidableEq K] [CharP K 2] :
@@ -78,10 +82,10 @@ noncomputable def frobPt (K : Type*) [Field K] [DecidableEq K] [CharP K 2] :
 /-- `π` squares both Weierstrass coordinates. -/
 private lemma frobPt_some {x y : K} (hns : (fer K).toAffine.Nonsingular x y)
     (hns2 : (fer K).toAffine.Nonsingular (x ^ 2) (y ^ 2)) :
-    frobPt K (Affine.Point.some hns) = Affine.Point.some hns2 := by
+    frobPt K (Affine.Point.some _ _ hns) = Affine.Point.some _ _ hns2 := by
   rw [frobPt]
   simp only [AddMonoidHom.coe_comp, Function.comp_apply, AddEquiv.coe_toAddMonoidHom,
-    curveCast_symm_some, Affine.Point.map_some, curveCast_some]
+    curveCast_symm_some, Affine.Point.map_some, curveCast_some, frobAlg_apply]
 
 /-- `π` squares both Fermat coordinates. -/
 lemma frobPt_pt {w t : K} (h : w ^ 3 + t ^ 3 = 1) :
@@ -135,8 +139,8 @@ theorem frobPt_frobPt (P : (fer K).toAffine.Point) :
       nonsingular_of_eq hxy4
     have hxy' : ¬(x = x ∧ y = (fer K).toAffine.negY x y) := fun h => Y_ne_negY x y h.2
     rw [frobPt_some hns hns2, frobPt_some hns2 hns4,
-      show (-2 : ℤ) • (Affine.Point.some hns) =
-          -(Affine.Point.some hns + Affine.Point.some hns) by
+      show (-2 : ℤ) • (Affine.Point.some _ _ hns) =
+          -(Affine.Point.some _ _ hns + Affine.Point.some _ _ hns) by
         rw [neg_smul, two_zsmul],
       Affine.Point.add_some hxy', Affine.Point.neg_some]
     refine some_eq_some _ _ ?_ ?_
@@ -196,8 +200,7 @@ theorem point_repr (P : (fer K).toAffine.Point) :
       (∃ (w t : K) (h : w ^ 3 + t ^ 3 = 1), P = pt w t h) := by
   induction P with
   | zero => exact Or.inl rfl
-  | some hns =>
-      rename_i x y
+  | some x y hns =>
       have heq : y ^ 2 + y = x ^ 3 + 1 := eq_of_nonsingular hns
       by_cases hx : x = 0
       · subst hx
